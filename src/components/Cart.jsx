@@ -21,11 +21,11 @@ const Cart = () => {
   const ifCartState = useSelector(selectedCartState);
   const cartItems = useSelector(selectedCartItems);
   const totalAmount = useSelector(selectTotalAmount);
+  const totalQTY = useSelector(selectTotalQTY);
 
   useEffect(() => {
     dispatch(setGetTotals());
   }, [cartItems, dispatch]);
-  const totalQTY = useSelector(selectTotalQTY);
 
   const onCartToggle = () => {
     dispatch(

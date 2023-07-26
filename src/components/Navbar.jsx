@@ -4,8 +4,14 @@ import { BsSearch } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsFillHandbagFill } from "react-icons/bs";
 import logo from "../assets/logo.png";
-import { useDispatch } from "react-redux";
-import { setOpenCart } from "../app/CartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectTotalAmount,
+  selectTotalQTY,
+  selectedCartItems,
+  setGetTotals,
+  setOpenCart,
+} from "../app/CartSlice";
 const Navbar = () => {
   const [navState, setNavState] = useState(false);
 
@@ -18,6 +24,13 @@ const Navbar = () => {
       })
     );
   };
+
+  const cartItems = useSelector(selectedCartItems);
+  const totalQTY = useSelector(selectTotalQTY);
+
+  useEffect(() => {
+    dispatch(setGetTotals());
+  }, [cartItems, dispatch]);
 
   const onNavScoll = () => {
     if (window.scrollY > 30) {
@@ -72,7 +85,7 @@ const Navbar = () => {
                   className={`icon-style ${navState && "brightness-0 filter"}`}
                 />
                 <div className="absolute top-4 right-0 bg-white w-4 h-4 rounded-full flex items-center justify-center font-semibold leading-tight hover:scale-110">
-                  0
+                  {totalQTY}
                 </div>
               </button>
             </li>
